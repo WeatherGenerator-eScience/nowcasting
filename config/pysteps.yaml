@@ -1,0 +1,57 @@
+dataloader:
+  module_path: nowcasting.data.dataloader_zarrv3.NowcastingDataModule
+  path: "/vol/knmimo-nobackup/users/mrobben/nowcasting/data/dataset_regrid.zarr"
+  var_info:
+    sample_var: "radar/max_intensity_grid"
+    in_vars:
+      - "radar/rtcor"
+    out_vars: 
+      - "radar/rtcor"
+    transforms: {}
+  
+  split_info:
+    split_rules:
+      test:
+        year: 
+        - 2023
+      val:
+        month:
+          - 6
+          - 11
+      train: {}
+    apply_missing_masks:
+      - "radar"
+      - "harmonie"
+      - "sat_l2"
+      - "sat_l1p5"
+      - "aws"
+    clutter_threshold: 50
+
+  sample_info:
+    threshold: 0.01
+    methods:
+      train:
+        agg: "mean_pool"
+      val:
+        agg: "mean_pool"
+        center_crop: true
+      test:
+        agg: "mean_pool"
+
+  context_len: 4
+  forecast_len: 18
+  img_size: [8, 8]
+  stride: [1,1,1]
+  batch_size: 32
+  num_workers: 24
+model:
+  module_path: nowcasting.benchmarks.pysteps.PySTEPSModel
+  ensemble_size: 1
+  future_timesteps: 18
+  km_per_pixel: 1.0
+eval:
+  model_path: nowcasting.benchmarks.pysteps.PySTEPSModel
+  model_name: "pysteps"
+  eval_name: "val"
+  leadtimes: [5,10,15,30,60,90]
+  thresholds: [0.5, 1, 2, 5, 10, 20, 30]

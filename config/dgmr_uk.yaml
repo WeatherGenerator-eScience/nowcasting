@@ -1,0 +1,54 @@
+dataloader:
+  module_path: nowcasting.data.dataloader_zarrv3.NowcastingDataModule
+  path: "/vol/knmimo-nobackup/users/mrobben/nowcasting/data/dataset_regrid.zarr"
+  var_info:
+    sample_var: "radar/max_intensity_grid"
+    in_vars:
+      - "radar/rtcor"
+    out_vars: 
+      - "radar/rtcor"
+    transforms: {}
+  
+  split_info:
+    split_rules:
+      test:
+        year: 
+        - 2023
+      val:
+        month:
+          - 6
+          - 11
+      train: {}
+    apply_missing_masks:
+      - "radar"
+      - "harmonie"
+      - "sat_l2"
+
+  sample_info:
+    bins:
+      n_bins: 15
+      first_bin: 0.2
+      last_bin: 15.0
+      scaler: 5.1 # 255/50
+      n_samples: 50000
+    methods:
+      train:
+        agg: "mean_pool"
+      val:
+        agg: "mean_pool"
+        center_crop: true
+      test:
+        agg: "mean_pool"
+
+  context_len: 4
+  forecast_len: 18
+  img_size: [8, 8]
+  batch_size: 24
+  num_workers: 24
+model:
+  module_path: nowcasting.benchmarks.dgmr_uk.DGMRModel
+  model_handle: './models/dgmr_uk/256x256/'
+  future_timesteps: 18
+eval:
+  model_path: nowcasting.benchmarks.dgmr_uk.DGMRModel
+  model_name: "dgmr_uk"
