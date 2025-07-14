@@ -1,7 +1,4 @@
 import zarr
-import zarrs
-zarr.config.set({"codec_pipeline.path": "zarrs.ZarrsCodecPipeline"})
-
 import numpy as np
 import pandas as pd
 import dask.array as da
