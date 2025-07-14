@@ -159,5 +159,8 @@ model:
   freeze_pretrained: [false, true]  # Freeze satellite pipeline
 
 eval:
-  model_name: "earthformer"
-  num_samples: 32000
+  model_path: nowcasting.benchmarks.ldcast_nowcast.LDCastNowcastNet
+  model_name: "ldcast_nowcast"
+  eval_name: "val"
+  leadtimes: [5,10,15,30,60,90]
+  thresholds: [0.5, 1, 2, 5, 10, 20, 30]
