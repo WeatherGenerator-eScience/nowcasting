@@ -32,6 +32,7 @@ setuptools.setup(
         "scipy",
         "codecarbon",
         "scikit-image", 
+        "tensorboard",
     ],
     python_requires=">=3.11",
 )
