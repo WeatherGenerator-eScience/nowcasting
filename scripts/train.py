@@ -339,6 +339,7 @@ def main(config: Optional[str] = None, version_path: Optional[str] = None, **kwa
         copy_config_to_log_dir(config_path, trainer)
 
     # Initialize CodeCarbon tracker to monitor carbon emissions
+    os.makedirs("results/environment_metrics", exist_ok=True)
     tracker = EmissionsTracker(
             project_name='Earthformer',
             output_dir="results/environment_metrics",
