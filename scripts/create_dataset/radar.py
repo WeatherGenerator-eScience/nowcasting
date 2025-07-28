@@ -14,11 +14,11 @@ import h5py
 import zarr
 
 # --- Configuration ---
-BASE_DATA_DIR = "/nobackup_1/users/robben/full_dataset"
-ZARR_OUTPUT_PATH = "/nobackup_1/users/robben/datasets/dataset.zarr"
+BASE_DATA_DIR = "/home/pkalverla/weathergenerator/data/nowcasting"
+ZARR_OUTPUT_PATH = "/home/pkalverla/weathergenerator/data/nowcasting/dataset.zarr"
 
-START_TIME = pd.Timestamp("2020-01-01 00:00")
-END_TIME = pd.Timestamp("2023-12-31 23:59")
+START_TIME = pd.Timestamp("2024-01-01 00:00")
+END_TIME = pd.Timestamp("2024-01-31 23:59")
 
 CLUTTER_VAR_NAME = "clutter_score"
 CLUTTER_DTYPE = np.uint16
@@ -31,51 +31,51 @@ source_configs = [
         "fill_value": 0,
         "chunk_size": 4,
         "shard_size": 1024,
-        "to_rainrate": True,       # Convert to mm/h
-        "antialias": True,          # Apply antialiasing
-        "compute_clutter": True,    # Compute clutter score
+        "to_rainrate": True,  # Convert to mm/h
+        "antialias": True,  # Apply antialiasing
+        "compute_clutter": True,  # Compute clutter score
         "create_timemask": True,
         "create_max_intensity": True,  # Create max_intensity_grid
         "pad_value": 0,
         "vars": {
-            'rtcor': {'dtype': np.float16, 'dims': (768, 704)},
-            'max_intensity_grid': {'dtype': np.uint8, 'dims': (24, 22)},
-        }
+            "rtcor": {"dtype": np.float16, "dims": (768, 704)},
+            "max_intensity_grid": {"dtype": np.uint8, "dims": (24, 22)},
+        },
     },
-    {
-        "name": "rfcor",
-        "path": os.path.join(BASE_DATA_DIR, "radar/RFCOR"),
-        "interval": 5,
-        "fill_value": 0,
-        "chunk_size": 4,
-        "shard_size": 1024,
-        "to_rainrate": True,        # Convert to mm/h
-        "antialias": False,
-        "compute_clutter": False,
-        "create_timemask": True,
-        "create_max_intensity": False,
-        "pad_value": 0,
-        "vars": {
-            'rfcor': {'dtype': np.float16, 'dims': (768, 704)},
-        }
-    },
-    {
-        "name": "eth",
-        "path": os.path.join(BASE_DATA_DIR, "radar/ETH"),
-        "interval": 5,
-        "fill_value": 0,
-        "chunk_size": 4,
-        "shard_size": 1024,
-        "to_rainrate": False,        # ETH is not rain rate
-        "antialias": False,
-        "compute_clutter": False,
-        "create_timemask": True,
-        "create_max_intensity": False,
-        "pad_value": 0,
-        "vars": {
-            'eth': {'dtype': np.float16, 'dims': (768, 704)},
-        }
-    }
+    # {
+    #     "name": "rfcor",
+    #     "path": os.path.join(BASE_DATA_DIR, "radar/RFCOR"),
+    #     "interval": 5,
+    #     "fill_value": 0,
+    #     "chunk_size": 4,
+    #     "shard_size": 1024,
+    #     "to_rainrate": True,        # Convert to mm/h
+    #     "antialias": False,
+    #     "compute_clutter": False,
+    #     "create_timemask": True,
+    #     "create_max_intensity": False,
+    #     "pad_value": 0,
+    #     "vars": {
+    #         'rfcor': {'dtype': np.float16, 'dims': (768, 704)},
+    #     }
+    # },
+    # {
+    #     "name": "eth",
+    #     "path": os.path.join(BASE_DATA_DIR, "radar/ETH"),
+    #     "interval": 5,
+    #     "fill_value": 0,
+    #     "chunk_size": 4,
+    #     "shard_size": 1024,
+    #     "to_rainrate": False,        # ETH is not rain rate
+    #     "antialias": False,
+    #     "compute_clutter": False,
+    #     "create_timemask": True,
+    #     "create_max_intensity": False,
+    #     "pad_value": 0,
+    #     "vars": {
+    #         'eth': {'dtype': np.float16, 'dims': (768, 704)},
+    #     }
+    # }
 ]
 
 
