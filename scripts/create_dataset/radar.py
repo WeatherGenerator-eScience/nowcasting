@@ -14,11 +14,11 @@ import h5py
 import zarr
 
 # --- Configuration ---
-BASE_DATA_DIR = "/home/pkalverla/weathergenerator/data/nowcasting"
-ZARR_OUTPUT_PATH = "/home/pkalverla/weathergenerator/data/nowcasting/dataset.zarr"
+BASE_DATA_DIR = "/home/peter/weathergenerator/data/"
+ZARR_OUTPUT_PATH = "/home/peter/weathergenerator/data/nowcasting/dataset.zarr"
 
 START_TIME = pd.Timestamp("2024-01-01 00:00")
-END_TIME = pd.Timestamp("2024-01-31 23:59")
+END_TIME = pd.Timestamp("2024-01-05 23:59")
 
 CLUTTER_VAR_NAME = "clutter_score"
 CLUTTER_DTYPE = np.uint16
